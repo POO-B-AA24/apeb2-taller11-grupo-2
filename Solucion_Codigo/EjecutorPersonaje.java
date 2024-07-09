@@ -1,8 +1,8 @@
 public class EjecutorPersonaje {
     public static void main(String[] args) {
-        Personaje guerrero = new Guerreros("Basico Cargado", 75.0, 300000.0, 3000.0);
-        Personaje mago = new Magos("Hegida del Sol", 450.0, 150000.0, 1500.0);
-        Personaje arquero = new Arqueros("Basico Potenciado", 100.0, 400000.0, 1200.0);
+        Personaje guerrero = new Guerreros("d Basico Cargado", 75.0, 300000.0, 3000.0);
+        Personaje mago = new Magos("f Hegida del Sol", 450.0, 150000.0, 1500.0);
+        Personaje arquero = new Arqueros("f Basico Potenciado", 100.0, 400000.0, 1200.0);
 
         System.out.println("===============");
         System.out.println("Guerrero stats");
@@ -44,8 +44,8 @@ public class EjecutorPersonaje {
     }
 
     public static void determinarGanador(Personaje p1, Personaje p2) {
-        int resultadoP1 = p1.ataque() - p2.defensa();
-        int resultadoP2 = p2.ataque() - p1.defensa();
+        double resultadoP1 = p1.ataque() - p2.defensa();
+        double resultadoP2 = p2.ataque() - p1.defensa();
 
         if (resultadoP1 > resultadoP2) {
             System.out.println("El ganador es: " + p1.tipo());
@@ -65,18 +65,17 @@ public class EjecutorPersonaje {
 abstract class Personaje {
     public double nivelXP;
     public double vidaMaxima;
-
+    
     public Personaje(double nivelXP, double vidaMaxima) {
         this.nivelXP = nivelXP;
         this.vidaMaxima = vidaMaxima;
     }
 
-    public abstract int ataque();
-    public abstract int defensa();
+    public abstract double ataque();
+    public abstract double defensa();
     public abstract String tipo();
 
-    public void aumentarNivelxWin() {
-        
+    public void aumentarNivelxWin() {     
        // Cambiar valores de la xp que se gana
         this.nivelXP += 100000; 
     }
@@ -98,13 +97,24 @@ class Guerreros extends Personaje {
     }
 
     @Override
-    public int ataque() {
-        return 75;
+    public double ataque() {
+        char habilidad= this.HabsCuerpoaCuerpo.charAt(0);
+        double multiplicador=0;
+        switch(habilidad){
+            case's':multiplicador =15;break;
+            case'a':multiplicador =7.3;break;
+            case'b':multiplicador =4.1;break;
+            case'c':multiplicador =2.5;break;
+            case'd':multiplicador =1.7;break;
+            case'e':multiplicador =1.3;break;
+            case'f':multiplicador =1.1;break;
+        }
+        return this.nivelFuerza*multiplicador;
     }
 
     @Override
-    public int defensa() {
-        return 250;
+    public double defensa() {
+        return this.nivelFuerza*2;
     }
 
     @Override
@@ -129,13 +139,24 @@ class Magos extends Personaje {
     }
 
     @Override
-    public int ataque() {
-        return 200;
+    public double ataque() {
+        char habilidad= this.Hechizos.charAt(0);
+        double multiplicador=0;
+        switch(habilidad){
+            case's':multiplicador =15;break;
+            case'a':multiplicador =7.3;break;
+            case'b':multiplicador =4.1;break;
+            case'c':multiplicador =2.5;break;
+            case'd':multiplicador =1.7;break;
+            case'e':multiplicador =1.3;break;
+            case'f':multiplicador =1.1;break;
+        }
+        return this.nivelPoderMagico*multiplicador;
     }
 
     @Override
-    public int defensa() {
-        return 76;
+    public double defensa() {
+        return this.nivelPoderMagico*1.5;
     }
 
     @Override
@@ -160,13 +181,24 @@ class Arqueros extends Personaje {
     }
 
     @Override
-    public int ataque() {
-        return 250;
+    public double ataque() {
+        char habilidad= this.HabiliadesArquero.charAt(0);
+        double multiplicador=0;
+        switch(habilidad){
+            case's':multiplicador =15;break;
+            case'a':multiplicador =7;break;
+            case'b':multiplicador =4;break;
+            case'c':multiplicador =2.5;break;
+            case'd':multiplicador =2;break;
+            case'e':multiplicador =1.5;break;
+            case'f':multiplicador =1.05;break;
+        }
+        return this.nivelPresicion*multiplicador*1.1;
     }
 
     @Override
-    public int defensa() {
-        return 65;
+    public double defensa() {
+        return this.nivelPresicion*1.1;
     }
 
     @Override
